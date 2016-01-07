@@ -1,0 +1,7 @@
+{
+  "name": "4 33",
+  "description": "A web app to manage 4 33 compositions recorded using Twilio",
+  "image": "heroku/python",
+  "keywords": ["python", "flask" ],
+  "addons": [ "heroku-postgresql" ]
+}

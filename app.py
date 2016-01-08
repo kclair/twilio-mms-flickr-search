@@ -61,7 +61,10 @@ def search_flickr_for_term(search_term):
         flickr_args(search_term)
     ]) 
     response = urllib2.urlopen(flickr_url)
-    data = json.load(response)
+    try:
+        data = json.load(response)
+    except ValueError:
+        return None
     photo = find_photo(data=data,search_term=search_term) 
     return construct_url_for_photo(photo)
 

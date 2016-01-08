@@ -106,11 +106,11 @@ def send_mms(to_number,image_url, photo):
     to_number = urllib2.unquote(to_number)
     client = twilio_auth()
     try:
-        license_text = LICENSE_CODES[photo['license']]
+        license_text = u'\N{COPYRIGHT SIGN} %s' % LICENSE_CODES[photo['license']]
     except KeyError:
         license_text = 'Unknown.'
     client.messages.create(
-        body='Your search results! Copyright: {}'.format(license_text),
+        body='Your search results! {}'.format(license_text),
         to=to_number,
         from_=TWILIO_NUMBER,
         media_url=image_url)

@@ -34,7 +34,7 @@ WELCOME_MESSAGE = '' \
     'to this number to receive a random photo from Flickr. '
 
 class PhoneNumber(db.Model):
-    phone_number = db.Column(db.String(30), unique=True)
+    phone_number = db.Column(db.String(30), primary_key=True)
 
     def __init__(self, phone_number):
         self.phone_number = phone_number

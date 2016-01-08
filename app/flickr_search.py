@@ -65,7 +65,7 @@ class FlickrSearch(object):
     def search(self):
         flickr_url = '?'.join([
             'https://www.flickr.com/services/rest/',
-            self.request_args(self.search_term)
+            self.request_args
         ]) 
         response = urllib2.urlopen(flickr_url)
         try:

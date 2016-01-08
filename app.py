@@ -24,7 +24,7 @@ def flickr_args(search_term):
         'content_type=1',
         'extras=original_format,description',
         'sort=relevance',
-        'text={}'.format(search_term),
+        'text={}'.format(urllib2.quote(search_term)),
         'nojsoncallback=1',
         'safe_search=1'
     ])
@@ -92,6 +92,7 @@ def search_flickr():
     search_term = request.args.get('Body', None)
     if not search_term:
        return return_error('search term not found')
+    search_term = search_term.replace('+', ' ') 
     image_url = search_flickr_for_term(search_term) 
     if not image_url:
        return return_error('no matching image found.')

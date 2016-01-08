@@ -93,6 +93,7 @@ def search_flickr():
     if not image_url:
        return return_error('no matching image found.')
     send_mms(to_number=from_number,image_url=image_url)
+    return ''
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

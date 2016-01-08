@@ -110,7 +110,7 @@ def send_mms(to_number,image_url, photo):
     except KeyError:
         license_text = 'Unknown.'
     client.messages.create(
-        body='Your search results! {}'.format(license_text),
+        body=u'Your search results! {}'.format(license_text),
         to=to_number,
         from_=TWILIO_NUMBER,
         media_url=image_url)

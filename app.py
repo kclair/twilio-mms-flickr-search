@@ -97,13 +97,21 @@ def search_flickr_for_term(search_term):
     photo = find_photo(data=data,search_term=search_term) 
     return (photo, construct_url_for_photo(photo))
 
+def lookup_number(number):
+    phone_number = PhoneNumber.query.filter_by(phone_number=number).first()
+    if not phone_number:
+        phone_number = PhoneNumber(phone_number=number)
+        db.session.add(phone_number)
+        db.session.commit()
+        return None
+    return phone_number
+
 def return_error(error_msg):
     r = twiml.Response()
     r.message(error_msg)
     return str(r)
 
 def send_mms(to_number,image_url, photo):
-    to_number = urllib2.unquote(to_number)
     client = twilio_auth()
     try:
         license_text = u'\N{COPYRIGHT SIGN} %s' % LICENSE_CODES[photo['license']]
@@ -122,9 +130,13 @@ def index():
 @app.route('/search_flickr')
 def search_flickr():
     from_number = request.args.get('From', None)
+    from_number = urllib2.unquote(from_number)
+    number_exists = lookup_number(from_number)
+    if not number_exists:
+        return return_error(WELCOME_MESSAGE)
     search_term = request.args.get('Body', None)
     if not search_term:
-       return return_error('search term not found')
+       return return_error('search term not found. %s' % WELCOME_MESSAGE)
     search_term = search_term.replace('+', ' ') 
     (photo, image_url) = search_flickr_for_term(search_term) 
     if not image_url:

@@ -13,9 +13,9 @@ app.debug = True
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///:memory:')
 db = SQLAlchemy(app)
 
-TW_SID = 'ACd6488e81463bb3c87c446a63cb563d05'
-TW_TOKEN = '7ac4e33455f4d50db5f71bfe5009e923'
-TWILIO_NUMBER = '+14253104023'
+TW_SID = os.environ.get('TW_SID')
+TW_TOKEN = os.environ.get('TW_TOKEN')
+TWILIO_NUMBER = os.environ.get('TWILIO_NUMBER') 
 
 LICENSE_CODES = {
   '0': 'All Rights Reserved',

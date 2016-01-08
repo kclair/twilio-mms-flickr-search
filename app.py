@@ -52,7 +52,7 @@ def find_photo(data, search_term):
 def construct_url_for_photo(photo):
     if not photo:
         return None
-    return 'https://farm{farm}.staticflickr.com/{server}/{id}_{secret}.{originalformat}'.format(
+    return 'https://farm{farm}.staticflickr.com/{server}/{id}_{secret}.jpg'.format(
         **photo)
 
 def search_flickr_for_term(search_term):

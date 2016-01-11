@@ -49,5 +49,5 @@ class AppBase(object):
         (photo, image_url) = f_search.search() 
         if not image_url:
            return self.twilio_mms.twiml_message('no matching image found.')
-        self.twilio_mms.send_mms(to_number=from_number, image_url=image_url, photo=photo)
+        self.twilio_mms.send_mms(to_number=self.from_number, image_url=image_url, photo=photo)
         return ''

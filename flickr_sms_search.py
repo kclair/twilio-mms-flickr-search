@@ -13,8 +13,7 @@ def index():
 
 @app.route('/search_flickr')
 def search_flickr():
-    flickr_search()
-    return ''
+    return flickr_search()
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

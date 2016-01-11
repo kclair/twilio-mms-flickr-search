@@ -20,11 +20,14 @@ class FlickrSearch(object):
     '''A class for handling flickr searches'''
 
     def __init__(self, search_term):
-        self.search_term = search_term
+        try:
+            (self.search_term, self.option) = search_term.split(':')
+        except ValueError:
+            (self.search_term, self.option) = (search_term, None)
 
     @property
     def request_args(self):
-        return '&'.join([
+        base_args = '&'.join([
             'api_key=3ec65cdbfb9d1c0e566c056fd2ae4bc6',
             'format=json',
             'method=flickr.photos.search',
@@ -35,6 +38,9 @@ class FlickrSearch(object):
             'nojsoncallback=1',
             'safe_search=1'
         ])
+        if self.option == 'common':
+            base_args.append('is_commons=true')
+        return base_args
 
     def find_photo(self, data):
         matching_photos = []

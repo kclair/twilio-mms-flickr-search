@@ -27,7 +27,7 @@ class FlickrSearch(object):
 
     @property
     def request_args(self):
-        base_args = '&'.join([
+        base_args = [
             'api_key=3ec65cdbfb9d1c0e566c056fd2ae4bc6',
             'format=json',
             'method=flickr.photos.search',
@@ -37,10 +37,10 @@ class FlickrSearch(object):
             'text={}'.format(urllib2.quote(self.search_term)),
             'nojsoncallback=1',
             'safe_search=1'
-        ])
+        ]
         if self.option == 'common':
             base_args.append('is_commons=true')
-        return base_args
+        return '&'.join(base_args)
 
     def find_photo(self, data):
         matching_photos = []

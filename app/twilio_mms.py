@@ -9,10 +9,6 @@ TW_SID = os.environ.get('TW_SID')
 TW_TOKEN = os.environ.get('TW_TOKEN')
 TWILIO_NUMBER = os.environ.get('TWILIO_NUMBER') 
 
-WELCOME_MESSAGE = '' \
-    'Hello! Send any word or phrase (under 20 characters) ' \
-    'to this number to receive a random photo from Flickr. '
-
 class TwilioMms(object):
 
     def __init__(self):

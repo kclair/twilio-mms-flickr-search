@@ -18,7 +18,7 @@ class TwilioMms(object):
     def __init__(self):
         self.client = TwilioRestClient(TW_SID, TW_TOKEN)
 
-    def twiml_message(msg):
+    def twiml_message(self, msg):
         r = twiml.Response()
         r.message(msg)
         return str(r)

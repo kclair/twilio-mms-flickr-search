@@ -13,38 +13,41 @@ db = SQLAlchemy(app)
 
 import phone_number
 
-def check_new_number():
-    number_exists = phone_number.lookup_number(from_number)
-    if not number_exists:
-        return WELCOME_MESSAGE
-    return None
+class AppBase(object):
 
-def check_help():
-    search_term = request.args.get('Body', None)
-    if 'help me' in search_term.lower():
-        return HELP_MESSAGE 
+    def __init__(self):
+        from_number = request.args.get('From', None)
+        self.from_number = urllib2.unquote(from_number)
+        search_term = request.args.get('Body', None)
+        self.search_term = search_term.replace('+', ' ') 
+        self.twilio_mms = TwilioMms()
 
-def parse_options():
-    from_number = request.args.get('From', None)
-    from_number = urllib2.unquote(from_number)
-    return_msg = None
-    return_msg = check_new_number()
-    if not return_msg:
-        return_msg = check_help()
-    return return_msg
+    def check_new_number(self):
+        number_exists = phone_number.lookup_number(self.from_number)
+        if not number_exists:
+            return WELCOME_MESSAGE
+        return None
+
+    def check_help(self):
+        if 'help me' in self.search_term.lower():
+            return HELP_MESSAGE 
+
+    def parse_options(self):
+        return_msg = None
+        return_msg = self.check_new_number()
+        if not return_msg:
+            return_msg = self.check_help()
+        return return_msg
     
-def flickr_search():
-    twilio_mms = TwilioMms()
-    return_msg = parse_options()
-    if return_msg:
-        return twilio_mms.twiml_message(return_msg)
-    search_term = request.args.get('Body', None)
-    if not search_term:
-       return twilio_mms.twiml_message('search term not found. %s' % WELCOME_MESSAGE)
-    search_term = search_term.replace('+', ' ') 
-    f_search = FlickrSearch(search_term)
-    (photo, image_url) = f_search.search() 
-    if not image_url:
-       return twilio_mms.twiml_message('no matching image found.')
-    twilio_mms.send_mms(to_number=from_number, image_url=image_url, photo=photo)
-    return ''
+    def flickr_search(self):
+        return_msg = self.parse_options()
+        if return_msg:
+            return self.twilio_mms.twiml_message(return_msg)
+        if not self.search_term:
+            return self.twilio_mms.twiml_message('search term not found. %s' % WELCOME_MESSAGE)
+        f_search = FlickrSearch(self.search_term)
+        (photo, image_url) = f_search.search() 
+        if not image_url:
+           return self.twilio_mms.twiml_message('no matching image found.')
+        self.twilio_mms.send_mms(to_number=from_number, image_url=image_url, photo=photo)
+        return ''

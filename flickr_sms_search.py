@@ -5,7 +5,7 @@ from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from app.flickr_search import FlickrSearch
 from app.twilio_mms import TwilioMms
-from app.app_base import app, db, flickr_search
+from app.app_base import app, db, AppBase 
 
 @app.route('/')
 def index():
@@ -13,7 +13,8 @@ def index():
 
 @app.route('/search_flickr')
 def search_flickr():
-    return flickr_search()
+    app_base = AppBase()
+    return app_base.flickr_search()
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))

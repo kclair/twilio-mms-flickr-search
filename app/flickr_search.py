@@ -16,6 +16,8 @@ LICENSE_CODES = {
   '8': 'United States Government Work (http://www.usa.gov/copyright.shtml)',
 }
 
+COMMON_LICENSE_CODES = [ '1', '2', '3', '4', '5', '6', '7' ]
+
 class FlickrSearch(object):
     '''A class for handling flickr searches'''
 
@@ -39,7 +41,7 @@ class FlickrSearch(object):
             'safe_search=1'
         ]
         if self.option == 'common':
-            base_args.append('is_commons=true')
+            base_args.append('license=%s' % ','.join(COMMON_LICENSE_CODES))
         return '&'.join(base_args)
 
     def find_photo(self, data):

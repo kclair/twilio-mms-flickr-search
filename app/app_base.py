@@ -18,8 +18,11 @@ class AppBase(object):
     def __init__(self):
         from_number = request.args.get('From', None)
         self.from_number = urllib2.unquote(from_number)
-        search_term = request.args.get('Body', None)
-        self.search_term = search_term.replace('+', ' ') 
+        try:
+            search_term = request.args.get('Body', None)
+            self.search_term = search_term.replace('+', ' ') 
+        except Exception as e:
+            self.search_term = None
         self.twilio_mms = TwilioMms()
 
     def check_new_number(self):
@@ -51,3 +54,6 @@ class AppBase(object):
            return self.twilio_mms.twiml_message('no matching image found.')
         self.twilio_mms.send_mms(to_number=self.from_number, image_url=image_url, photo=photo)
         return ''
+
+    def get_images(self):
+        return self.twilio_mms.get_sent_media(self.from_number)

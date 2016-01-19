@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    <form action='/send_access_code' method="post">
-        <div class="form-group">
-            <label for="phoneNumber">Phone Number</label>
-            <input type="text" id="phoneNumber" name="From">
+    <form class="form-horizontal" action='/send_access_code' method="post">
+        <div class="form-group form-group-lg">
+            <label class="control-label" for="phoneNumber">Phone Number</label>
+            <input class="form-control" type="text" id="phoneNumber" name="From">
             <p class="help-block">Enter your phone number to see your image history. Ex: +15558675309</p>
         </div>
         <button type="submit" class="btn btn-default">Submit</button>

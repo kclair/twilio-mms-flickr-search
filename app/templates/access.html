@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="container">
-    <form action='/history' method="get">
+    {% if not success %}
+        <p class="bg-danger">Incorrect access code.</p>
+    {% endif %}
+    <form action='/history' method="post">
         <div class="form-group">
             <label for="phoneNumber">Phone Number</label>
             <input type="text" id="phoneNumber" name="phoneNumber">

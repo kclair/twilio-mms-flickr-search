@@ -19,7 +19,7 @@ import image
 class AppBase(object):
 
     def __init__(self):
-        from_number = request.args.get('phoneNumber', None)
+        from_number = request.form.get('phoneNumber', None)
         self.from_number = urllib2.unquote(from_number)
         try:
             search_term = request.args.get('Body', None)
@@ -35,6 +35,13 @@ class AppBase(object):
         access_code = ''.join(
             random.choice(string.digits) for _ in range(6))
         number.update_access_code(access_code)
+        return True
+
+    def check_access_code(self):
+        access_code = request.form['accessCode']
+        number = phone_number.lookup_number(self.from_number)
+        if access_code != number.access_code:
+            return False
         return True
 
     def check_new_number(self):

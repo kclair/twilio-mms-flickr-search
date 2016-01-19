@@ -9,13 +9,13 @@ from app.app_base import app, db, AppBase
 def index():
     return render_template('index.html')
 
-@app.route('/send_access_code')
+@app.route('/send_access_code', methods=['POST'])
 def send_access_code():
     app_base = AppBase()
     success = app_base.send_access_code()
     return render_template('access.html')
 
-@app.route('/history')
+@app.route('/history', methods=['POST'])
 def get_history():
     app_base = AppBase()
     success = app_base.check_access_code()

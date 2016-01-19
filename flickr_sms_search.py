@@ -27,7 +27,7 @@ def get_history():
     except Exception as e:
         return 'Error! {}'.format(e.__class__.__name__)
 
-@app.route('/search_flickr')
+@app.route('/search_flickr', methods=['POST'])
 def search_flickr():
     app_base = AppBase()
     return app_base.flickr_search()

@@ -19,7 +19,7 @@ import image
 class AppBase(object):
 
     def __init__(self):
-        from_number = request.form.get('phoneNumber', None)
+        from_number = request.form['From']
         self.from_number = urllib2.unquote(from_number)
         try:
             search_term = request.args.get('Body', None)

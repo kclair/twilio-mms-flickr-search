@@ -59,4 +59,4 @@ class TwilioMms(object):
         self.client.messages.create(
             body=msg,
             to=to_number,
-            from=TWILIO_NUMBER)
+            from_=TWILIO_NUMBER)

@@ -3,7 +3,7 @@ import app_base
 class PhoneNumber(app_base.db.Model):
     phone_number = app_base.db.Column(app_base.db.String(30), primary_key=True)
     access_code = app_base.db.Column(app_base.db.String(6))
-    access_code_ts = db.Column(db.DateTime)
+    access_code_ts = app_base.db.Column(db.DateTime)
 
     def __init__(self, phone_number):
         self.phone_number = phone_number

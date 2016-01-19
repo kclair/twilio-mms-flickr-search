@@ -9,6 +9,9 @@ class PhoneNumber(app_base.db.Model):
     def __init__(self, phone_number):
         self.phone_number = phone_number
 
+    def __repr__(self):
+        return '<PhoneNumber %r>' % self.phone_number
+
 def lookup_number(number):
     phone_number = PhoneNumber.query.filter_by(phone_number=number).first()
     if not phone_number:

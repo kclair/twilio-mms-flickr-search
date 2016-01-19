@@ -15,6 +15,10 @@ class Image(app_base.db.Model):
         self.flickr_id = flickr_id
         self.image_url = image_url
         self.phone_number = phone_number
+    
+    def __repr__(self):
+        return '<Image %r, %r, %r>' % (
+            self.flickr_id, self.image_url, self.phone_number)
 
 def store_image(photo, image_url, from_number):
     phone_number = pn.PhoneNumber.query.filter_by(

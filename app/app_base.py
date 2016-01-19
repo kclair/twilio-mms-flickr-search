@@ -22,7 +22,7 @@ class AppBase(object):
         from_number = request.form['From']
         self.from_number = urllib2.unquote(from_number)
         try:
-            search_term = request.args.get('Body', None)
+            search_term = request.form.get('Body', None)
             self.search_term = search_term.replace('+', ' ') 
         except Exception as e:
             self.search_term = None

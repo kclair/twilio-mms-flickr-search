@@ -12,6 +12,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:/
 db = SQLAlchemy(app)
 
 import phone_number
+import image
 
 class AppBase(object):
 
@@ -52,6 +53,7 @@ class AppBase(object):
         (photo, image_url) = f_search.search() 
         if not image_url:
            return self.twilio_mms.twiml_message('no matching image found.')
+        image.store_image(photo, image_url, self.from_number)
         self.twilio_mms.send_mms(to_number=self.from_number, image_url=image_url, photo=photo)
         return ''
 

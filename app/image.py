@@ -15,3 +15,7 @@ class Image(app_base.db.Model):
         self.image_url = image_url
         self.phone_number = phone_number
 
+def store_image(photo, image_url, phone_number):
+    img = Image(photo['id'], image_url, phone_number)
+    app_base.db.session.add(img)
+    app_base.db.session.commit()

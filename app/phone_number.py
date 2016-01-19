@@ -2,7 +2,7 @@ import app_base
 
 class PhoneNumber(app_base.db.Model):
     id = app_base.db.Column(app_base.db.Integer, primary_key=True)   
-    phone_number = app_base.db.Column(app_base.db.String(30), primary_key=True)
+    phone_number = app_base.db.Column(app_base.db.String(30), unique=True)
     access_code = app_base.db.Column(app_base.db.String(6))
     access_code_ts = app_base.db.Column(app_base.db.DateTime)
 

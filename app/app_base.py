@@ -35,7 +35,8 @@ class AppBase(object):
         access_code = ''.join(
             random.choice(string.digits) for _ in range(6))
         number.update_access_code(access_code)
-        self.twilio_mms.send_sms('Your access code: {}'.format(access_code))
+        self.twilio_mms.send_sms(self.from_number, 
+            'Your access code: {}'.format(access_code))
         return True
 
     def check_access_code(self):

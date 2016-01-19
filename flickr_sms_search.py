@@ -13,7 +13,7 @@ def index():
 def send_access_code():
     app_base = AppBase()
     success = app_base.send_access_code()
-    return render_template('access.html')
+    return render_template('access.html', success=True)
 
 @app.route('/history', methods=['POST'])
 def get_history():

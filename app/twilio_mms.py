@@ -54,3 +54,9 @@ class TwilioMms(object):
             to=to_number,
             from_=TWILIO_NUMBER,
             media_url=image_url)
+
+    def send_sms(self, to_number, msg):
+        self.client.messages.create(
+            body=msg,
+            to=to_number,
+            from=TWILIO_NUMBER)

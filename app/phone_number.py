@@ -13,8 +13,8 @@ def lookup_number(number):
     phone_number = PhoneNumber.query.filter_by(phone_number=number).first()
     if not phone_number:
         phone_number = PhoneNumber(phone_number=number)
-        db.session.add(phone_number)
-        db.session.commit()
+        app_base.db.session.add(phone_number)
+        app_base.db.session.commit()
         return None
     return phone_number
 

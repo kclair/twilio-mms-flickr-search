@@ -1,6 +1,7 @@
 import os
 import urllib2
 import random
+import string
 from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flickr_search import FlickrSearch

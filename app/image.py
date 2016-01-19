@@ -1,5 +1,5 @@
 import app_base
-import phone_number
+import phone_number as pn
 
 class Image(app_base.db.Model):
     id = app_base.db.Column(app_base.db.Integer, primary_key=True)
@@ -17,7 +17,7 @@ class Image(app_base.db.Model):
         self.phone_number = phone_number
 
 def store_image(photo, image_url, from_number):
-    phone_number = PhoneNumber.query.filter_by(
+    phone_number = ph.PhoneNumber.query.filter_by(
         phone_number=from_number).first() 
     img = Image(photo['id'], image_url, phone_number)
     app_base.db.session.add(img)

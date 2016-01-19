@@ -1,5 +1,6 @@
 import os
 import urllib2
+import random
 from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flickr_search import FlickrSearch
@@ -17,7 +18,7 @@ import image
 class AppBase(object):
 
     def __init__(self):
-        from_number = request.args.get('From', None)
+        from_number = request.args.get('phoneNumber', None)
         self.from_number = urllib2.unquote(from_number)
         try:
             search_term = request.args.get('Body', None)
@@ -26,8 +27,17 @@ class AppBase(object):
             self.search_term = None
         self.twilio_mms = TwilioMms()
 
+    def send_access_code(self):
+        number = phone_number.lookup_number(self.from_number)
+        if not number:
+            return False
+        access_code = ''.join(
+            random.choice(string.digits) for _ in range(6))
+        number.update_access_code(access_code)
+        return True
+
     def check_new_number(self):
-        number_exists = phone_number.lookup_number(self.from_number)
+        number_exists = phone_number.lookup_and_create_number(self.from_number)
         if not number_exists:
             return WELCOME_MESSAGE
         return None

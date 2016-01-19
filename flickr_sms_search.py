@@ -7,7 +7,13 @@ from app.app_base import app, db, AppBase
 
 @app.route('/')
 def index():
-    return ''
+    return render_template('index.html')
+
+@app.route('/send_access_code')
+def send_access_code():
+    app_base = AppBase()
+    success = app_base.send_access_code()
+    return render_template('access.html', success=success)
 
 @app.route('/history')
 def get_history():

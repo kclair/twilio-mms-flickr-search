@@ -8,12 +8,21 @@ class PhoneNumber(app_base.db.Model):
 
     def __init__(self, phone_number):
         self.phone_number = phone_number
+        self.access_code = None
+        self.access_code_ts = None
 
     def __repr__(self):
-        return '<PhoneNumber %r>' % self.phone_number
+        return '<PhoneNumber %r, %r>' % (self.phone_number, self.access_code)
+
+    def update_access_code(self, access_code):
+        self.access_code = access_code
+        app_base.db.session.commit()
 
 def lookup_number(number):
-    phone_number = PhoneNumber.query.filter_by(phone_number=number).first()
+    return PhoneNumber.query.filter_by(phone_number=number).first()
+
+def lookup_and_create_number(number):
+    phone_number = lookup_number(number)
     if not phone_number:
         phone_number = PhoneNumber(phone_number=number)
         app_base.db.session.add(phone_number)

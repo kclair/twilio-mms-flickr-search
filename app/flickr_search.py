@@ -59,7 +59,7 @@ class FlickrPhoto(FlickrBase):
         try:
             return self.data['photo']['urls']['url'][0]['_content']
         except TypeError, KeyError:
-            return str(self.data)
+            return None
 
 class FlickrSearch(FlickrBase):
     '''A class for handling flickr searches'''

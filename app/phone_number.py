@@ -30,3 +30,7 @@ def lookup_and_create_number(number):
         return None
     return phone_number
 
+def delete_number(number):
+    phone_number = PhoneNumber.query.filter_by(phone_number=number).first()
+    app_base.db.session.delete(phone_number)
+    app_base.db.session.commit()

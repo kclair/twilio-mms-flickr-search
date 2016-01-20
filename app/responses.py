@@ -8,3 +8,6 @@ HELP_MESSAGE = '' \
 '''Use a colon after your search phrase to specify options.
 Currently supported options are:
   common: only receive immages with a creativecommons license (ex: alpaca:common)''' 
+
+FORGOT_NUMBER_MESSAGE = ''\
+    'Your number and images have been removed.'

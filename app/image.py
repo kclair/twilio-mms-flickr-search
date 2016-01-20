@@ -39,3 +39,12 @@ def get_images_by_phone_number(number):
         image_sets.append(
             [ image for image in images[i:i+3] ] )
     return image_sets
+
+def delete_images_for_number(number):
+    phone_number = pn.lookup_number(number)
+    if not phone_number:
+        return False 
+    images = Image.query.filter_by(phone_number=phone_number).all()
+    for image in images:
+        app_base.db.session.delete(image)
+    app_base.db.session.commit()

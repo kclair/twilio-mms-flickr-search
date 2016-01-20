@@ -6,7 +6,7 @@ from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flickr_search import FlickrSearch
 from twilio_mms import TwilioMms
-from responses import WELCOME_MESSAGE, HELP_MESSAGE
+from responses import WELCOME_MESSAGE, HELP_MESSAGE, FORGOT_NUMBER_MESSAGE
 
 app = Flask(__name__)
 app.debug = True
@@ -52,15 +52,19 @@ class AppBase(object):
             return WELCOME_MESSAGE
         return None
 
-    def check_help(self):
+    def check_commands(self):
         if 'help me' in self.search_term.lower():
             return HELP_MESSAGE 
+        if 'forget me' in self.search_term.lower():
+            image.delete_images_for_number(self.from_number)
+            phone_number.delete_number(self.from_number)
+            return FORGOT_NUMBER_MESSAGE
 
     def parse_options(self):
         return_msg = None
         return_msg = self.check_new_number()
         if not return_msg:
-            return_msg = self.check_help()
+            return_msg = self.check_commands()
         return return_msg
     
     def flickr_search(self):

@@ -34,18 +34,30 @@ class FlickrBase(object):
         except ValueError:
             return None
 
-class FlickrPhotoInfo(FlickrBase):
+class FlickrPhoto(FlickrBase):
     '''A class for getting info about a flickr photo'''
 
     def __init__(self, flickr_id):
         self.flickr_id = flickr_id
+        try:
+            self.data = self.open_url()
+        except:
+            self.data = {}
 
     @property
     def request_args(self):
         return '&'.join([
             'api_key={}'.format(FLICKR_API_KEY),
             'photo_id={}'.format(self.flickr_id),
+            'method=flickr.photos.getInfo',
         ]) 
+
+    @property
+    def photopage(self):
+        try:
+            return self.data['photo']['urls']['url'][0]['_content']
+        except KeyError:
+            return str(self.data)
 
 class FlickrSearch(FlickrBase):
     '''A class for handling flickr searches'''

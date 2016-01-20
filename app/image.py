@@ -1,5 +1,6 @@
 import app_base
 import phone_number as pn
+from flickr_search import FlickrPhoto
 
 class Image(app_base.db.Model):
     id = app_base.db.Column(app_base.db.Integer, primary_key=True)
@@ -33,5 +34,6 @@ def get_images_by_phone_number(number):
     image_sets = []
     for i in xrange(0, len(images), 3):
         image_sets.append(
-            [ image.image_url for image in images[i:i+3] ] )
+            [ (image.image_url, FlickrPhoto(image.flickr_id)) 
+              for image in images[i:i+3] ] )
     return image_sets

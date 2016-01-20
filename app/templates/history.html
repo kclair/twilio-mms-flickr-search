@@ -7,10 +7,11 @@
     </div>
     {% for image_set in images %}
       <div class="row">
-      {% for image in image_set %}
+      {% for (image_url, image_data) in image_set %}
           <div class="col-sm-4">
               <div class='image'>
-                  <img class="center-block" height="250px" src="{{ image }}"><br>
+                  <img class="center-block" height="250px" src="{{ image_url }}">
+                  <p class="help-block">{{ image_data.photopage }}</p>
               </div>
           </div>
       {% endfor %}

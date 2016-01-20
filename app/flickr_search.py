@@ -50,13 +50,15 @@ class FlickrPhoto(FlickrBase):
             'api_key={}'.format(FLICKR_API_KEY),
             'photo_id={}'.format(self.flickr_id),
             'method=flickr.photos.getInfo',
+            'nojsoncallback=1',
+            'format=json',
         ]) 
 
     @property
     def photopage(self):
         try:
             return self.data['photo']['urls']['url'][0]['_content']
-        except KeyError:
+        except TypeError, KeyError:
             return str(self.data)
 
 class FlickrSearch(FlickrBase):

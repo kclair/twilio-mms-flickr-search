@@ -20,7 +20,34 @@ COMMON_LICENSE_CODES = [ '1', '2', '3', '4', '5', '6', '7' ]
 
 FLICKR_API_KEY = os.environ.get('FLICKR_API_KEY', None)
 
-class FlickrSearch(object):
+class FlickrBase(object):
+    '''A base class for flickr api calls'''
+
+    def open_url(self):
+        flickr_url = '?'.join([
+            'https://www.flickr.com/services/rest/',
+            self.request_args
+        ]) 
+        response = urllib2.urlopen(flickr_url)
+        try:
+            return json.load(response)
+        except ValueError:
+            return None
+
+class FlickrPhotoInfo(FlickrBase):
+    '''A class for getting info about a flickr photo'''
+
+    def __init__(self, flickr_id):
+        self.flickr_id = flickr_id
+
+    @property
+    def request_args(self):
+        return '&'.join([
+            'api_key={}'.format(FLICKR_API_KEY),
+            'photo_id={}'.format(self.flickr_id),
+        ]) 
+
+class FlickrSearch(FlickrBase):
     '''A class for handling flickr searches'''
 
     def __init__(self, search_term):
@@ -73,14 +100,8 @@ class FlickrSearch(object):
             **photo)
 
     def search(self):
-        flickr_url = '?'.join([
-            'https://www.flickr.com/services/rest/',
-            self.request_args
-        ]) 
-        response = urllib2.urlopen(flickr_url)
-        try:
-            data = json.load(response)
-        except ValueError:
-            return None
+        data = self.open_url() 
+        if not data:
+            return (None, None)
         photo = self.find_photo(data=data) 
         return (photo, self.construct_url_for_photo(photo))

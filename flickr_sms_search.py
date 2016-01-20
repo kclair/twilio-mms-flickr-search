@@ -1,6 +1,7 @@
 import os
 import sys
 import urllib2
+import traceback
 from flask import Flask, request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from app.app_base import app, db, AppBase 
@@ -25,7 +26,8 @@ def get_history():
     try:
         return render_template('history.html', images=images) 
     except Exception as e:
-        return 'Error! {}'.format(e.__class__.__name__)
+        return '<br>'.join(['Error! {}'.format(e.__class__.__name__),
+                            traceback.format_exc() ])
 
 @app.route('/search_flickr', methods=['POST'])
 def search_flickr():

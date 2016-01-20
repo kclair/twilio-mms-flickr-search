@@ -18,6 +18,8 @@ LICENSE_CODES = {
 
 COMMON_LICENSE_CODES = [ '1', '2', '3', '4', '5', '6', '7' ]
 
+FLICKR_API_KEY = os.environ.get('FLICKR_API_KEY
+
 class FlickrSearch(object):
     '''A class for handling flickr searches'''
 
@@ -30,7 +32,7 @@ class FlickrSearch(object):
     @property
     def request_args(self):
         base_args = [
-            'api_key=3ec65cdbfb9d1c0e566c056fd2ae4bc6',
+            'api_key={}'.format(FLICKR_API_KEY),
             'format=json',
             'method=flickr.photos.search',
             'content_type=1',

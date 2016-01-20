@@ -26,3 +26,12 @@ def store_image(photo, image_url, from_number):
     img = Image(photo['id'], image_url, phone_number)
     app_base.db.session.add(img)
     app_base.db.session.commit()
+
+def get_images_by_phone_number(number):
+    phone_number = pn.lookup_number(number)
+    images = Image.query.filter_by(phone_number=phone_number)
+    image_sets = []
+    for i in xrange(0, len(images), 3):
+        image_sets.append(
+            [ image.image_url for image in images[i:i+3] ] )
+    return image_sets

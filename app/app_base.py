@@ -78,4 +78,5 @@ class AppBase(object):
         return ''
 
     def get_images(self):
-        return self.twilio_mms.get_sent_media(self.from_number)
+        #return self.twilio_mms.get_sent_media(self.from_number)
+        return image.get_images_by_phone_number(self.from_number)

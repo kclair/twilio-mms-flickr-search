@@ -6,7 +6,7 @@ from flask import Flask, request, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flickr_search import FlickrSearch
 from twilio_mms import TwilioMms
-from responses import WELCOME_MESSAGE, HELP_MESSAGE, FORGOT_NUMBER_MESSAGE
+from responses import WELCOME_MESSAGE, HELP_MESSAGE, FORGOT_NUMBER_MESSAGE, OPTIONS_MESSAGE
 
 app = Flask(__name__)
 app.debug = True
@@ -72,6 +72,8 @@ class AppBase(object):
                 return 'Could not generate an access code'
             return 'Go to {} and enter your phone number and access code {}'.format(
                 url_for('enter_access_code', _external=True), access_code)
+        if 'options' in self.search_term.lower():
+            return OPTIONS_MESSAGE
 
     def parse_options(self):
         return_msg = None

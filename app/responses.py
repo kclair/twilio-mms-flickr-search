@@ -13,3 +13,7 @@ HELP_MESSAGE = '' \
 
 FORGOT_NUMBER_MESSAGE = ''\
     'Your number and images have been removed.'
+
+OPTIONS_MESSAGE = '''Specify options using a colon after your search term.
+Available options: 'common' to only return images with a creative common license.
+Ex: 'alpaca:common'.'''

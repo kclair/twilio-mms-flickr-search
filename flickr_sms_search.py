@@ -16,7 +16,7 @@ def send_access_code():
     success = app_base.send_access_code()
     return render_template('access.html', success=True)
 
-@app.route('enter_access_code')
+@app.route('/enter_access_code')
 def enter_access_code():
     return render_template('access.html', success=True)
 

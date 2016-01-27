@@ -16,6 +16,10 @@ def send_access_code():
     success = app_base.send_access_code()
     return render_template('access.html', success=True)
 
+@app.route('enter_access_code')
+def enter_access_code():
+    return render_template('access.html', success=True)
+
 @app.route('/history', methods=['POST'])
 def get_history():
     app_base = AppBase()

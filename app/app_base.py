@@ -71,7 +71,7 @@ class AppBase(object):
                 # return link to index page to generate a new access code
                 return 'Could not generate an access code'
             return 'Go to {} and enter your phone number and access code {}'.format(
-                url_for('get_history', _external=True), access_code)
+                url_for('enter_access_code', _external=True), access_code)
 
     def parse_options(self):
         return_msg = None

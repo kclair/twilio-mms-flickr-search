@@ -5,9 +5,11 @@ WELCOME_MESSAGE = '' \
     'Send "help me" at any time to receive additional help.'
 
 HELP_MESSAGE = '' \
-'''Use a colon after your search phrase to specify options.
-Currently supported options are:
-  common: only receive immages with a creativecommons license (ex: alpaca:common)''' 
+'''Available commands:
+'help me' for this message.
+'forget me' to delete phone number and history.
+'history' to receive a link to your image history.
+'options' for a list of search options.'''
 
 FORGOT_NUMBER_MESSAGE = ''\
     'Your number and images have been removed.'

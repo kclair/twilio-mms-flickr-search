@@ -2,7 +2,7 @@ import os
 import urllib2
 import random
 import string
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flickr_search import FlickrSearch
 from twilio_mms import TwilioMms
@@ -28,13 +28,19 @@ class AppBase(object):
             self.search_term = None
         self.twilio_mms = TwilioMms()
 
-    def send_access_code(self):
+    def generate_access_code(self):
         number = phone_number.lookup_number(self.from_number)
         if not number:
             return False
         access_code = ''.join(
             random.choice(string.digits) for _ in range(6))
         number.update_access_code(access_code)
+        return access_code
+
+    def send_access_code(self):
+        access_code = self.generate_access_code()
+        if not access_code:
+            return False
         self.twilio_mms.send_sms(self.from_number, 
             'Your access code: {}'.format(access_code))
         return True
@@ -59,6 +65,13 @@ class AppBase(object):
             image.delete_images_for_number(self.from_number)
             phone_number.delete_number(self.from_number)
             return FORGOT_NUMBER_MESSAGE
+        if 'history' in self.search_term.lower():
+            access_code = self.generate_access_code()
+            if not access_code:
+                # return link to index page to generate a new access code
+                return 'Could not generate an access code'
+            return 'Go to {} and enter your phone number and access code {}'.format(
+                url_for('history'), access_code)
 
     def parse_options(self):
         return_msg = None

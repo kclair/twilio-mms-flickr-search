@@ -44,13 +44,17 @@ class TwilioMms(object):
         r.message(msg)
         return str(r)
 
-    def send_mms(self, to_number, image_url, photo):
+    def send_mms(self, to_number, image_url, photo, search_term=None):
         try:
             license_text = u'\N{COPYRIGHT SIGN} %s' % LICENSE_CODES[photo['license']]
         except KeyError:
             license_text = 'Unknown.'
+        if search_term.lower() == 'llama':
+            body = 'YAY llamas!!'
+        else:
+            body = 'Your search results!'
         self.client.messages.create(
-            body=u'Your search results! {}'.format(license_text),
+            body=u'{} {}'.format(body, license_text),
             to=to_number,
             from_=TWILIO_NUMBER,
             media_url=image_url)

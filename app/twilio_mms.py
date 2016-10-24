@@ -50,7 +50,7 @@ class TwilioMms(object):
         except KeyError:
             license_text = 'Unknown.'
         if search_term.lower() == 'llama':
-            body = 'YAY LLAMAS!! Maybe you should try an alpaca next.'
+            body = 'YAY LLAMAS!! Are you sure this is not an alpaca?'
         else:
             body = 'Here are your (boring) search results. Next time you should consider searching for "llama".'
         self.client.messages.create(

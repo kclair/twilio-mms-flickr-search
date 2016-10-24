@@ -52,7 +52,7 @@ class TwilioMms(object):
         if search_term.lower() == 'llama':
             body = 'YAY llamas!!'
         else:
-            body = 'Your search results!'
+            body = 'Here are your search results. Next time you should consider searching for "llama".`'
         self.client.messages.create(
             body=u'{} {}'.format(body, license_text),
             to=to_number,
